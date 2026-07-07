@@ -4,29 +4,26 @@
 		<title>Quizmasters | Food and Drink Quiz</title>
 		<link rel="stylesheet" href="../../style.css">
 	</head>
-<!-- Questions as h2 headings -->
- 	<body>	
-			<h2 id="question">Test</h2>
-		<!-- Unordered list of answers with radio buttons -->
-		<ul>
-			<li>
-				<input type="radio" id="ans1" name="answers" value="">
-				<label for="ans1"></label>
-			</li>
-			<li><input type="radio" id="ans2" name="answers">
-				<label for="ans2"></label>
-			</li>
-			<li>
-				<input type="radio" id="ans3" name="answers">
-				<label for="ans3"></label>
-			</li>
-			<li>
-				<input type="radio" id="ans4" name="answers">
-				<label for="ans4"></label>
-			</li>
-		</ul>
+ 	
+	<body>	
+		<!-- Question as h2 heading -->
+		<h2 id="question">Test</h2>
+		
+		<!-- 4 radio buttons, containing each possible answer, within a div -->
+		<div>
+			<input type="radio" id="ans1" name="answers" value="">
+			<label for="ans1">A</label>
 
-		<!-- Button that moves on to the next question -->
+			<input type="radio" id="ans2" name="answers">
+			<label for="ans2">B</label>
+
+			<input type="radio" id="ans3" name="answers">
+			<label for="ans3">C</label>
+
+			<input type="radio" id="ans4" name="answers">
+			<label for="ans4">D</label>
+		</div>
+		<!-- Button element that moves on to the next question -->
 		<button id="submit">Next Question &#9193;</button>
 	</body>
 </html>

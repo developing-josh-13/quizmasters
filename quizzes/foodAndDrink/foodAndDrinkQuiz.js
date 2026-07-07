@@ -52,22 +52,20 @@ const randomNum = Math.floor((Math.random() * 5)) + 1;
 console.log(randomNum);
 
 document.getElementById("question").innerHTML = questions[randomNum - 1].question;
+document.getElementById("ans1")
 
-const testElement = document.getElementById(`q${randomNum}`);
-console.log(testElement);
-
-// const testText = questions[randomNum].question;
-// console.log(testText);
+const testText = questions[randomNum].question;
+console.log(testText);
 
 
 const correctAnswers = [];
 
 questions.forEach(questionObj => {
 	const correctAnswer = questionObj.answers.find(answer => answer.correct == "yes");
-	correctAnswers.push(correctAnswer);
+	correctAnswers.push(correctAnswer.answer);
 });
 
-// console.log(correctAnswers);
+console.log(correctAnswers);
 
 // const ans1 = document.getElementById("ans1");
 // const ans2 = document.getElementById("ans2");
