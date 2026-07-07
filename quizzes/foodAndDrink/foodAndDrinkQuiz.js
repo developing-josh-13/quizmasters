@@ -48,14 +48,13 @@ const questions = [
 	}
 ]
 
-// const randomNum = Math.floor((Math.random() * 6));
-// console.log(randomNum);
+const randomNum = Math.floor((Math.random() * 5)) + 1;
+console.log(randomNum);
 
-// if (randomNum) {
-// 	document.getElementById("q1").innerHTML = questions[randomNum].question;
-// }
-// const testElement = document.getElementById("q1");
-// console.log(testElement);
+document.getElementById("question").innerHTML = questions[randomNum - 1].question;
+
+const testElement = document.getElementById(`q${randomNum}`);
+console.log(testElement);
 
 // const testText = questions[randomNum].question;
 // console.log(testText);
