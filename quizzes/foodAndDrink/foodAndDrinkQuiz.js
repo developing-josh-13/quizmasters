@@ -48,14 +48,18 @@ const questions = [
 	}
 ]
 
-const randomNum = Math.floor((Math.random() * 5)) + 1;
-console.log(randomNum);
+function createQuestion() {
+	// const randomNum = Math.floor((Math.random() * questions.length)) + 1;
+	// console.log(randomNum);
+	for (let i = 0; i < 5; i++) {
+		document.getElementById("question").innerHTML = questions[i].question;
+		document.getElementById(`ans${i + 1}`).innerHTML = questions[i].answers[i].answer;
+		console.log(questions[i].answers[i].answer);
+	}
+}
 
-document.getElementById("question").innerHTML = questions[randomNum - 1].question;
-document.getElementById("ans1")
-
-const testText = questions[randomNum].question;
-console.log(testText);
+// const testText = questions[randomNum].question;
+// console.log(testText);
 
 
 const correctAnswers = [];
