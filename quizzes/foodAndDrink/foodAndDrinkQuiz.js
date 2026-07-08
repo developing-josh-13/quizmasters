@@ -1,7 +1,6 @@
-
-
+// Array of questions to be answered //
 const questions = [
-	{ // Q1
+	{
 		question: 'What is the official corporate logo for Guinness?',
 		answers: [
 			{answer: 'Banjo', correct: 'no'},
@@ -10,7 +9,7 @@ const questions = [
 			{answer: 'Cello', correct: 'no'}
 		]
 	},
-	{ // Q2
+	{
 		question: 'In which country are the self-proclaimed \'master chocolatiers\' Lindt based?',
 		answers: [
 			{answer: 'Switzerland', correct: 'yes'},
@@ -19,7 +18,7 @@ const questions = [
 			{answer: 'Sweden', correct: 'no'}
 		]
 	},
-	{ // Q3
+	{
 		question: 'Which fast-food establishment\'s long-held slogan is "Eat Fresh"?',
 		answers: [
 			{answer: 'Popeye\'s', correct: 'no'},
@@ -28,7 +27,7 @@ const questions = [
 			{answer: 'Subway', correct: 'yes'}
 		]
 	},
-	{ // Q4
+	{
 		question: 'Which country produces the most coffee in the world?',
 		answers: [
 			{answer: 'Mexico', correct: 'no'},
@@ -37,7 +36,7 @@ const questions = [
 			{answer: 'Colombia', correct: 'no'}
 		]
 	},
-	{ // Q5
+	{
 		question: 'Which is the oldest soft drink to be served in America?',
 		answers: [
 			{answer: 'Coca Cola', correct: 'no'},
@@ -48,30 +47,42 @@ const questions = [
 	}
 ]
 
-function createQuestion() {
-	// const randomNum = Math.floor((Math.random() * questions.length)) + 1;
-	// console.log(randomNum);
-	for (let i = 0; i < 5; i++) {
-		document.getElementById("question").innerHTML = questions[i].question;
-		document.getElementById(`ans${i + 1}`).innerHTML = questions[i].answers[i].answer;
-		console.log(questions[i].answers[i].answer);
+function shuffle(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		// between 0 and 5
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
 	}
+};
+
+shuffle(questions);
+console.log(questions);
+
+
+// Function to shuffle the questions into a random order on each page visit //
+let selected = 0;
+function generateQuestion() {
+	document.getElementById("question").innerHTML = questions[selected].question;
+	for (let i = 0; i < 4; i++){
+		document.getElementById(`ans${i+1}`).innerHTML = questions[selected].answers[i].answer;
+	}
+	selected++;
 }
 
-// const testText = questions[randomNum].question;
-// console.log(testText);
 
+if (selected < 4) {
+	generateQuestion();
+	document.getElementById("submit").addEventListener("click", generateQuestion)
+} else {
+	document.getElementById("submit").addEventListener("click", () => {
+		window.location.href = ""
+	})
+}
 
 const correctAnswers = [];
-
 questions.forEach(questionObj => {
 	const correctAnswer = questionObj.answers.find(answer => answer.correct == "yes");
 	correctAnswers.push(correctAnswer.answer);
 });
 
 console.log(correctAnswers);
-
-// const ans1 = document.getElementById("ans1");
-// const ans2 = document.getElementById("ans2");
-// const ans3 = document.getElementById("ans3");
-// const ans4 = document.getElementById("ans4");
