@@ -1,3 +1,32 @@
-body {
+html {
 	background-color:burlywood;
+	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	width: 100%;
 }
+
+.navbar {
+	position: absolute;
+	display:flex;
+	background-color:bisque;
+	gap: 2rem;
+	justify-content:space-evenly;
+	/* width: 100rem;
+	position: fixed;
+	font-size: 1rem;
+	display: grid;
+	grid-template-columns:repeat(7, auto);
+	justify-content:space-evenly; */
+}
+
+.navlink {
+	background-color:coral;
+	width: 10rem;
+	text-align: center;
+	height: 40px;
+}
+/* li {
+	
+	width: 10rem;
+	height: 2rem;
+	text-align: center;
+} */
