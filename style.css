@@ -1,32 +1,38 @@
 html {
-	background-color:burlywood;
+	background-color:silver;
 	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	width: 100%;
 }
 
 .navbar {
-	position: absolute;
-	display:flex;
-	background-color:bisque;
-	gap: 2rem;
-	justify-content:space-evenly;
-	/* width: 100rem;
+	background-color:linen;
 	position: fixed;
-	font-size: 1rem;
-	display: grid;
-	grid-template-columns:repeat(7, auto);
-	justify-content:space-evenly; */
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 2;
+	display:flex;
+	justify-content:space-evenly;
+	font-size: 25px;
+	line-height: 50px;
 }
 
 .navlink {
-	background-color:coral;
-	width: 10rem;
 	text-align: center;
-	height: 40px;
+	text-transform: uppercase;
+	width: auto;
+	text-decoration: none;
+	color: black;
 }
-/* li {
-	
-	width: 10rem;
-	height: 2rem;
+
+.help {
 	text-align: center;
-} */
+	position: relative;
+	top: 70px;
+	color:darkblue
+}
+
+.helptitle {
+	font-size: 40px;
+	line-height: 50px;
+	margin: 0px;
+}
