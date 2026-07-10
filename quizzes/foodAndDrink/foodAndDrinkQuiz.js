@@ -47,42 +47,40 @@ const questions = [
 	}
 ]
 
+// Declared variable to hold results of answers given, to be updated in later function //
+const results = [];
+
+// Function to shuffle the array (line 2 to 48) into a random order on each page visit //
 function shuffle(array) {
 	for (let i = array.length - 1; i > 0; i--) {
-		// between 0 and 5
 		const j = Math.floor(Math.random() * (i + 1));
 		[array[i], array[j]] = [array[j], array[i]];
 	}
 };
-
 shuffle(questions);
 console.log(questions);
 
-
-// Function to shuffle the questions into a random order on each page visit //
+// Declared variables for index of current question in the array (line 2 to line 48) and its corresponding correct answer, to be updated as questions are cycled through //
 let selected = 0;
+let correctAnswers = [];
+
+// Function that cycles through the questions in shuffled order (line 54 to 60) //
 function generateQuestion() {
 	document.getElementById("question").innerHTML = questions[selected].question;
+	correctAnswers.push(questions[selected].answers.find(answer => answer.correct == "yes"));
+	console.log(correctAnswers);
 	for (let i = 0; i < 4; i++){
 		document.getElementById(`ans${i+1}`).innerHTML = questions[selected].answers[i].answer;
 	}
 	selected++;
 }
 
-
 if (selected < 4) {
+	// Generate first question by invoking the function (line 68 to 76) //
 	generateQuestion();
+	// Move to next question (line 68 to 76) by clicking Next Question button //
 	document.getElementById("submit").addEventListener("click", generateQuestion)
+// Display results after final question using Complete button //
 } else {
-	document.getElementById("submit").addEventListener("click", () => {
-		window.location.href = ""
-	})
+	document.getElementById("submit").addEventListener("click", /* Function to display final results will go here */)
 }
-
-const correctAnswers = [];
-questions.forEach(questionObj => {
-	const correctAnswer = questionObj.answers.find(answer => answer.correct == "yes");
-	correctAnswers.push(correctAnswer.answer);
-});
-
-console.log(correctAnswers);
