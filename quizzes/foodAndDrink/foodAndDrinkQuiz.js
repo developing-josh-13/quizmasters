@@ -64,7 +64,7 @@ console.log(questions);
 let selected = 0;
 let correctAnswers = [];
 
-// Function that cycles through the questions in shuffled order (line 54 to 60) //
+// Function that moves to the next question and adds the current answer to correctAnswers array on line 65 //
 function generateQuestion() {
 	document.getElementById("question").innerHTML = questions[selected].question;
 	correctAnswers.push(questions[selected].answers.find(answer => answer.correct == "yes"));
@@ -74,6 +74,10 @@ function generateQuestion() {
 	}
 	selected++;
 }
+
+// Function that moves to the previous question and removes the last answer from correctAnswers array on line 65 //
+
+// generateQuestion();
 
 if (selected < 4) {
 	// Generate first question by invoking the function (line 68 to 76) //
