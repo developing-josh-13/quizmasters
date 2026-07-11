@@ -1,4 +1,4 @@
-// Array of questions to be answered //
+// All questions for Food and Drink quiz and their corresponding answers //
 const questions = [
 	{
 		question: 'What is the official corporate logo for Guinness?',
@@ -47,10 +47,7 @@ const questions = [
 	}
 ]
 
-// Declared variable to hold results of answers given, to be updated in later function //
-const results = [];
-
-// Function to shuffle the array (line 2 to 48) into a random order on each page visit //
+// Shuffles the questions //
 function shuffle(array) {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -58,33 +55,43 @@ function shuffle(array) {
 	}
 };
 shuffle(questions);
-console.log(questions);
 
-// Declared variables for index of current question in the array (line 2 to line 48) and its corresponding correct answer, to be updated as questions are cycled through //
-let selected = 0;
+// Placeholders that will get updated as the quiz progresses //
+let results = [];
+let questionIndex = 0;
 let correctAnswers = [];
 
-// Function that moves to the next question and adds the current answer to correctAnswers array on line 65 //
-function generateQuestion() {
-	document.getElementById("question").innerHTML = questions[selected].question;
-	correctAnswers.push(questions[selected].answers.find(answer => answer.correct == "yes"));
-	console.log(correctAnswers);
-	for (let i = 0; i < 4; i++){
-		document.getElementById(`ans${i+1}`).innerHTML = questions[selected].answers[i].answer;
-	}
-	selected++;
-}
+// Move to next question //
+function nextQuestion() {
 
-// Function that moves to the previous question and removes the last answer from correctAnswers array on line 65 //
+	// Display current question //
+	document.getElementById("question").innerHTML = questions[questionIndex].question;
+	
+	// Display answers of current question //
+	let inputs = document.getElementsByTagName('input');
+	for (let i = 0; i < 4; i++) {
+		inputs[i].checked = false;
+		document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
+	};
 
-// generateQuestion();
+	// Store correct answer of current question //
+	correctAnswers.push(questions[questionIndex].answers.find(answer => answer.correct == "yes"));
 
-if (selected < 4) {
-	// Generate first question by invoking the function (line 68 to 76) //
-	generateQuestion();
+	//  //
+	questionIndex++;
+};
+
+nextQuestion();
+
+// Function that moves to the previous question and removes the last answer from correctAnswers array on line 64 //
+// function prevQuestion() {
+
+// }
+
+if (questionIndex != 4) {
 	// Move to next question (line 68 to 76) by clicking Next Question button //
-	document.getElementById("submit").addEventListener("click", generateQuestion)
-// Display results after final question using Complete button //
+	document.getElementById("submit").addEventListener("click", nextQuestion)
 } else {
+	document.getElementById("submit").innerHTML = "Submit &#9989;";
 	document.getElementById("submit").addEventListener("click", /* Function to display final results will go here */)
 }
