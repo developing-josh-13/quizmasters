@@ -4,41 +4,51 @@
 		<title>Quizmasters | Music Quiz</title>
 		<link rel="stylesheet" href="../../style.css">
 	</head>
-
+ 	
 	<body>
 		<header>
-			<nav class="navbar">
-				<a class="navlink" href="../../index.html">Home</a>
-				<a class="navlink" href="../../howToPlay.html">How to Play</a>
-				<a class="navlink" href="../foodAndDrink/foodAndDrinkQuiz.html">Food and Drink</a>
-				<a class="navlink" href="../maths/mathsQuiz.html">Maths</a>
-				<a class="navlink" href="./musicQuiz.html">Music</a>
-				<a class="navlink" href="../sports/sportsQuiz.html">Sports</a>
-				<a class="navlink" href="../technology/technologyQuiz.html">Technology</a>
+			<nav>
+				<a href="../../index.html">Home</a>
+				<a href="../../howToPlay.html">How to Play</a>
+				<a href="../foodAndDrink/foodAndDrinkQuiz.html">Food and Drink</a>
+				<a href="../maths/mathsQuiz.html">Maths</a>
+				<a href="./musicQuiz.html">Music</a>
+				<a href="../sports/sportsQuiz.html">Sports</a>
+				<a href="../technology/technologyQuiz.html">Technology</a>
 			</nav>
 		</header>
+		
+		<div id="quiz">
+			<!-- Initial empty tag to display questions in -->
+			<h1 id="question"></h1>
 
-		<div>
-			<!-- Quiz question displayed here -->
-			<h2 id="question"></h2>
-
-			<!-- Quiz answers displayed here as radio buttons -->
-			<input type="radio" name="answers">
+			<!-- Initial empty labels to display answers in, along with radio buttons to select each answer -->
+			<input type="radio" name="answers" />
 			<label for="ans1" id="ans1"></label>
 			<br>
-			<input type="radio" name="answers">
+			<input type="radio" name="answers" />
 			<label for="ans2" id="ans2"></label>
 			<br>
-			<input type="radio" name="answers">
+			<input type="radio" name="answers" />
 			<label for="ans3" id="ans3"></label>
 			<br>
-			<input type="radio" name="answers">
+			<input type="radio" name="answers" />
 			<label for="ans4" id="ans4"></label>
+			<br>
+			<!-- Initial empty button for Previous Question  -->
+			<button id="prev" hidden></button>
+			<!-- Initial empty button for Next Question  -->
+			<button id="next"></button>
 		</div>
 
-		<!-- Next question button displayed here -->
-		<button id="submit">Next Question &#9193;</button>
-
-		<script src="musicQuiz.js"></script>
+		<div id="results" hidden>
+			<h1></h1>
+			<h3>You scored:</h3>
+			<p id="yourscore"></p>
+			<p id="maxscore">/5</p>
+		</div>
 	</body>
+
+	<!-- Script tag that links to corresponding JS file -->
+	<script src="musicQuiz.js"></script>
 </html>
