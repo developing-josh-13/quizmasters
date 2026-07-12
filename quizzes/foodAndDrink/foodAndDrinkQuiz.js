@@ -60,6 +60,11 @@ shuffle(questions);
 let questionIndex = 0;
 let correctAnswers = [];
 let chosenAnswers = [];
+let userScore = 0;
+
+// Contains all possible answers to current question
+let inputs = document.getElementsByTagName('input');
+console.log(inputs);
 
 // Display current question on screen
 function displayQuestion(){
@@ -67,78 +72,100 @@ function displayQuestion(){
 	document.getElementById("question").innerHTML = questions[questionIndex].question;
 	
 	// Fill in label tags with answers to current question
-	for (let i = 0; i < 4; i++) {
+	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
 	document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
 	}
 
-	if (questionIndex === 4) {
-		// Nullify Next Question button
-		document.getElementById("next").removeEventListener("click", nextQuestion);
-		// Change Next Question button to say Submit
-		document.getElementById("next").innerHTML = "Submit &#9989;";
-		// Display final results screen by clicking Submit button
-		document.getElementById("next").addEventListener("click", finalResults)
+	let next = document.getElementById("next");
+	let prev = document.getElementById("prev");
+
+	// Modify behaviour of Next Question button based on the current question
+	if (questionIndex == 4) {
+		next.removeEventListener("click", nextQuestion);
+		next.innerHTML = "Submit &#9989;";
+		next.addEventListener("click", finalResults);
 	} else {
-		// Move to next question by clicking Next Question button
-		document.getElementById("next").addEventListener("click", nextQuestion);
+		next.removeEventListener("click", finalResults);
+		next.innerHTML = "Next Question &#9193;";
+		next.addEventListener("click", nextQuestion);
+	}
+
+	// Modify behaviour of Previous Question button based on the current question
+	if (questionIndex != 0 ) {
+		prev.hidden = false;
+		prev.innerHTML = "Previous Question &#9194;"
+		prev.addEventListener("click", prevQuestion);
+	} else {
+		prev.hidden = true;
+		prev.removeEventListener("click", prevQuestion);
 	}
 }
 
 // Move to next question
 function nextQuestion() {
-
-	// Create variable containing all possible answers
-	let inputs = document.getElementsByTagName('input');
-	console.log(inputs);
-
 	// Check which answer is selected and add it to chosenAnswers array
-	for (let i = 0; i < 4; i++) {
+	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
 		if (inputs[i].checked == true) {
 			chosenAnswers.push(questions[questionIndex].answers[i].answer)
 		}
+		// Reset radio buttons post-answer-check
 		inputs[i].checked = false;
 	};
-	console.log(chosenAnswers);
 
 	// Add correct answer to correctAnswers array
 	correctAnswers.push(questions[questionIndex].answers.find(answer => answer.correct == "yes").answer);
-	console.log(correctAnswers);
 
 	questionIndex++;
 	displayQuestion();
-	console.log(questionIndex);
 };
 
 // Move to previous question
 function prevQuestion() {
-	// Reduce index by 1 to fulfill the rest of this function
-	questionIndex--;
-	console.log(questionIndex);
 
-	// Display current question on the page
-	document.getElementById("question").innerHTML = questions[questionIndex].question;
+	// Remove last chosen and correct answers from their arrays
+	chosenAnswers.pop();
+	correctAnswers.pop();
+	console.log(chosenAnswers);
+	console.log(correctAnswers);
 
-	// Display answers of current question on the page
-	let inputs = document.getElementsByTagName('input');
+	// Reset radio buttons
 	for (let i = 0; i < 4; i++) {
 		inputs[i].checked = false;
-		document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
-	};
-
-	// Remove last correct answer from array
-	correctAnswers.pop();
-
-	if (questionIndex == 0) {
-		document.getElementById('previous').hidden = true;
-	} else {
-		document.getElementById('previous').hidden = false;
-		document.getElementById('previous').addEventListener("click", prevQuestion);
 	}
+
+	userScore--;
+	questionIndex--;
+	displayQuestion();
+	console.log(questionIndex);
 }
 
 function finalResults(){
-	console.log("You scored: 5/5!")
-}
 
+	// Check which answer is selected and add it to chosenAnswers array
+	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
+		if (inputs[i].checked == true) {
+			chosenAnswers.push(questions[questionIndex].answers[i].answer)
+		}
+		// Reset radio buttons post-answer-check
+		inputs[i].checked = false;
+	};
+
+	// Add correct answer to correctAnswers array
+	correctAnswers.push(questions[questionIndex].answers.find(answer => answer.correct == "yes").answer);
+
+	// If each answer matches, increment user score by 1
+	for (let i = 0; i < questions.length; i++) {
+		console.log(chosenAnswers[i]);
+		console.log(correctAnswers[i]);
+		if (chosenAnswers[i] === correctAnswers[i]) {
+		userScore++;
+		
+		}
+	}
+
+	document.getElementById("quiz").hidden = true;
+	document.getElementById("results").hidden = false;
+	document.getElementById("yourscore").innerHTML = `${userScore}`;
+}
 // Initialise quiz with first question
 displayQuestion();
