@@ -47,5 +47,11 @@ label {
 }
 
  button {
-	
+	size: medium;
+ }
+
+ p {
+	font-size: 45px;
+	text-align: center;
+	display: inline;
  }
