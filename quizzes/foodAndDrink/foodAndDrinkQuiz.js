@@ -47,7 +47,7 @@ const questions = [
 	}
 ]
 
-// Shuffles the questions //
+// Shuffles the questions
 function shuffle(array) {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -56,42 +56,89 @@ function shuffle(array) {
 };
 shuffle(questions);
 
-// Placeholders that will get updated as the quiz progresses //
-let results = [];
+// Placeholders that will get updated as the quiz progresses
 let questionIndex = 0;
 let correctAnswers = [];
+let chosenAnswers = [];
 
-// Move to next question //
-function nextQuestion() {
-
-	// Display current question //
+// Display current question on screen
+function displayQuestion(){
+	// Fill in h1 tag with current question
 	document.getElementById("question").innerHTML = questions[questionIndex].question;
 	
-	// Display answers of current question //
+	// Fill in label tags with answers to current question
+	for (let i = 0; i < 4; i++) {
+	document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
+	}
+
+	if (questionIndex === 4) {
+		// Nullify Next Question button
+		document.getElementById("next").removeEventListener("click", nextQuestion);
+		// Change Next Question button to say Submit
+		document.getElementById("next").innerHTML = "Submit &#9989;";
+		// Display final results screen by clicking Submit button
+		document.getElementById("next").addEventListener("click", finalResults)
+	} else {
+		// Move to next question by clicking Next Question button
+		document.getElementById("next").addEventListener("click", nextQuestion);
+	}
+}
+
+// Move to next question
+function nextQuestion() {
+
+	// Create variable containing all possible answers
+	let inputs = document.getElementsByTagName('input');
+	console.log(inputs);
+
+	// Check which answer is selected and add it to chosenAnswers array
+	for (let i = 0; i < 4; i++) {
+		if (inputs[i].checked == true) {
+			chosenAnswers.push(questions[questionIndex].answers[i].answer)
+		}
+		inputs[i].checked = false;
+	};
+	console.log(chosenAnswers);
+
+	// Add correct answer to correctAnswers array
+	correctAnswers.push(questions[questionIndex].answers.find(answer => answer.correct == "yes").answer);
+	console.log(correctAnswers);
+
+	questionIndex++;
+	displayQuestion();
+	console.log(questionIndex);
+};
+
+// Move to previous question
+function prevQuestion() {
+	// Reduce index by 1 to fulfill the rest of this function
+	questionIndex--;
+	console.log(questionIndex);
+
+	// Display current question on the page
+	document.getElementById("question").innerHTML = questions[questionIndex].question;
+
+	// Display answers of current question on the page
 	let inputs = document.getElementsByTagName('input');
 	for (let i = 0; i < 4; i++) {
 		inputs[i].checked = false;
 		document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
 	};
 
-	// Store correct answer of current question //
-	correctAnswers.push(questions[questionIndex].answers.find(answer => answer.correct == "yes"));
+	// Remove last correct answer from array
+	correctAnswers.pop();
 
-	//  //
-	questionIndex++;
-};
-
-nextQuestion();
-
-// Function that moves to the previous question and removes the last answer from correctAnswers array on line 64 //
-// function prevQuestion() {
-
-// }
-
-if (questionIndex != 4) {
-	// Move to next question (line 68 to 76) by clicking Next Question button //
-	document.getElementById("submit").addEventListener("click", nextQuestion)
-} else {
-	document.getElementById("submit").innerHTML = "Submit &#9989;";
-	document.getElementById("submit").addEventListener("click", /* Function to display final results will go here */)
+	if (questionIndex == 0) {
+		document.getElementById('previous').hidden = true;
+	} else {
+		document.getElementById('previous').hidden = false;
+		document.getElementById('previous').addEventListener("click", prevQuestion);
+	}
 }
+
+function finalResults(){
+	console.log("You scored: 5/5!")
+}
+
+// Initialise quiz with first question
+displayQuestion();
