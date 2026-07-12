@@ -18,7 +18,7 @@
 			</nav>
 		</header>
 		
-		<div>
+		<div id="quiz">
 			<!-- Initial empty tag to display questions in -->
 			<h1 id="question"></h1>
 
@@ -35,10 +35,17 @@
 			<input type="radio" name="answers" />
 			<label for="ans4" id="ans4"></label>
 			<br>
-			<!-- Previous question button displayed here -->
-			<button id="previous" hidden>Previous Question &#9194;</button>
-			<!-- Next question button displayed here -->
-			<button id="next">Next Question &#9193;</button>
+			<!-- Initial empty button for Previous Question  -->
+			<button id="prev" hidden></button>
+			<!-- Initial empty button for Next Question  -->
+			<button id="next"></button>
+		</div>
+
+		<div id="results" hidden>
+			<h1></h1>
+			<h3>You scored:</h3>
+			<p id="yourscore"></p>
+			<p id="maxscore">/5</p>
 		</div>
 	</body>
 
