@@ -163,9 +163,10 @@ function finalResults(){
 		}
 	}
 
-	document.getElementById("quiz").hidden = true;
-	document.getElementById("results").hidden = false;
+	document.getElementById("quiz").style.display = "none";
+	document.getElementById("results").style.display = "flex";
 	document.getElementById("yourscore").innerHTML = `${userScore}`;
 }
+
 // Initialise quiz with first question
 displayQuestion();
