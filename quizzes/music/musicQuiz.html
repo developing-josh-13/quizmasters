@@ -18,37 +18,51 @@
 			</nav>
 		</header>
 		
-		<div class="containers">
+		<div class="wholepage" id="quiz">
 			<!-- Initial empty tag to display questions in -->
 			<h1 id="question"></h1>
 
 			<!-- Initial empty labels to display answers in, along with radio buttons to select each answer -->
-			<input type="radio" name="answers" />
-			<label for="ans1" id="ans1"></label>
-			<br>
-			<input type="radio" name="answers" />
-			<label for="ans2" id="ans2"></label>
-			<br>
-			<input type="radio" name="answers" />
-			<label for="ans3" id="ans3"></label>
-			<br>
-			<input type="radio" name="answers" />
-			<label for="ans4" id="ans4"></label>
-			<br>
-			<!-- Initial empty button for Previous Question  -->
-			<button id="prev" hidden></button>
-			<!-- Initial empty button for Next Question  -->
-			<button id="next"></button>
-		</div>
+			<div class="answers">
+				<input type="radio" name="answers" />
+				<label for="ans1" id="ans1"></label>
+			</div>
+			<div class="answers">
+				<input type="radio" name="answers" />
+				<label for="ans2" id="ans2"></label>
+			</div>
+			<div class="answers">
+				<input type="radio" name="answers" />
+				<label for="ans3" id="ans3"></label>
+			</div>
+			<div class="answers">
+				<input type="radio" name="answers" />
+				<label for="ans4" id="ans4"></label>
+			</div>
 
-		<div id="results" hidden>
-			<h1></h1>
-			<h3>You scored:</h3>
-			<p id="yourscore"></p>
-			<p id="maxscore">/5</p>
+			<!-- Initial empty button tags to navigate between questions -->
+			<div class="buttons">
+				<button id="prev" hidden></button>
+				<button id="next"></button>
+			</div>
+
 		</div>
+		
+		<!-- Final results content, initially hidden until after final question -->
+		<div class="report" id="results">
+			<h1>Final Result</h1>
+
+			<div class="answers">
+				<h2>You scored:</h2>
+				<p id="yourscore"></p>
+				<p id="maxscore">out of 5!</p>
+			</div>
+			
+		</div>
+	
 	</body>
 
 	<!-- Script tag that links to corresponding JS file -->
 	<script src="musicQuiz.js"></script>
+	
 </html>
