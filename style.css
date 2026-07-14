@@ -1,8 +1,12 @@
+/* Rulesets that apply to every html page */
+
+/* Entire page (level 0) */
 html {
 	background-color:silver;
 	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	overflow: hidden;
 }
-
+/* Navigation bar (level 1) */
 nav {
 	background-color:linen;
 	position: fixed;
@@ -16,6 +20,7 @@ nav {
 	line-height: 50px;
 }
 
+/* Links in navbar (level 2) */
 a {
 	text-align: center;
 	text-transform: uppercase;
@@ -24,47 +29,61 @@ a {
 	color: black;
 }
 
-div {
-	margin: auto;
-	width: 70%;
-	text-align: center;
-	position: relative;
-	top: 120px;
+/* Container areas for entire page's content */
+.containers {
+	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+	justify-content:center;
 	color:midnightblue;
+	position: relative;
+	top: 75px;
 }
 
+/* Title headings (level 2) */
 h1 {
-	background-color:linen;
-	font-size: 55px;
-	line-height: 100px;
+	font-size: 45px;
+	padding: 45px;
 	border-style:groove;
+	border-color: black;
+	background-color:linen;
 }
 
-h2 {
-	margin: auto;
-	width: 700px;
-	font-size: 30px;
+/* Paragraph text (level 2) */
+p {
+	font-size: 20px;
+	text-align: center;
+	display: inline;
 }
 
+/* Rulesets that apply to only the quizzes */
+
+/* Each answer's div container (level 3) */
+.answers {
+  	flex-direction: row;
+  	align-items: center;
+	padding: 2px;
+	height: 50px;
+	position: relative;
+}
+
+/* Each answer's radio button (level 4) */
 input {
 	transform:scale(1.2);
+	margin: 30px;
 }
 
+/* Each answer's text label (level 4) */
 label {
 	line-height: 75px;
 	font-size: 30px;
 }
 
- button {
+/* Next question, previous question and submit buttons */
+button {
 	margin-top: 500px;
 	font-size:18px;
 	cursor:pointer;
-	background-color:gainsboro ;
+	background-color:gainsboro;
 	border: none;
- }
-
- p {
-	font-size: 20px;
-	text-align: center;
-	display: inline;
- }
+}
