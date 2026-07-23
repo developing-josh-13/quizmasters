@@ -19,10 +19,10 @@
 		</header>
 		
 		<div class="wholepage" id="quiz">
-			<!-- Initial empty tag to display questions in -->
+			<!-- Displays current question -->
 			<h1 id="question"></h1>
 
-			<!-- Initial empty labels to display answers in, along with radio buttons to select each answer -->
+			<!-- Displays answers along with radio buttons -->
 			<div class="answers">
 				<input type="radio" name="answers" />
 				<label for="ans1" id="ans1"></label>
@@ -40,15 +40,15 @@
 				<label for="ans4" id="ans4"></label>
 			</div>
 
-			<!-- Initial empty button tags to navigate between questions -->
+			<!-- Navigates between questions -->
 			<div class="buttons">
-				<button id="prev" hidden></button>
-				<button id="next"></button>
+				<button id="prev" hidden>Previous Question &#9194;</button>
+				<button id="next" hidden>Next Question &#9193;</button>
 			</div>
 
 		</div>
 		
-		<!-- Final results content, initially hidden until after final question -->
+		<!-- Displays final results -->
 		<div class="report" id="results">
 			<h1>Final Result</h1>
 

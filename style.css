@@ -15,7 +15,6 @@ nav {
 	top: 0px;
 	left: 0px;
 	right: 0px;
-	z-index: 2;
 	display:flex;
 	justify-content:space-evenly;
 	font-size: 25px;
@@ -44,7 +43,7 @@ a {
 
 /* Title headings (level 2) */
 h1 {
-	font-size: 45px;
+	font-size: 40px;
 	padding: 45px;
 	border: groove black;
 	background-color:linen;
