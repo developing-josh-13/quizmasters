@@ -3,165 +3,174 @@ const questions = [
 	{
 		question: 'What is the official corporate logo for Guinness?',
 		answers: [
-			{answer: 'Banjo', correct: 'no'},
-			{answer: 'Triangle', correct: 'no'},
-			{answer: 'Harp', correct: 'yes'},
-			{answer: 'Cello', correct: 'no'}
+			{choice: 'Banjo', correct: 'no'},
+			{choice: 'Triangle', correct: 'no'},
+			{choice: 'Harp', correct: 'yes'},
+			{choice: 'Cello', correct: 'no'}
 		]
 	},
 	{
 		question: 'In which country are the self-proclaimed \'master chocolatiers\' Lindt based?',
 		answers: [
-			{answer: 'Switzerland', correct: 'yes'},
-			{answer: 'Belgium', correct: 'no'},
-			{answer: 'France', correct: 'no'},
-			{answer: 'Sweden', correct: 'no'}
+			{choice: 'Switzerland', correct: 'yes'},
+			{choice: 'Belgium', correct: 'no'},
+			{choice: 'France', correct: 'no'},
+			{choice: 'Sweden', correct: 'no'}
 		]
 	},
 	{
 		question: 'Which fast-food establishment\'s long-held slogan is "Eat Fresh"?',
 		answers: [
-			{answer: 'Popeye\'s', correct: 'no'},
-			{answer: 'KFC', correct: 'no'},
-			{answer: 'Taco Bell', correct: 'no'},
-			{answer: 'Subway', correct: 'yes'}
+			{choice: 'Popeye\'s', correct: 'no'},
+			{choice: 'KFC', correct: 'no'},
+			{choice: 'Taco Bell', correct: 'no'},
+			{choice: 'Subway', correct: 'yes'}
 		]
 	},
 	{
 		question: 'Which country produces the most coffee in the world?',
 		answers: [
-			{answer: 'Mexico', correct: 'no'},
-			{answer: 'Brazil', correct: 'yes'},
-			{answer: 'Argentina', correct: 'no'},
-			{answer: 'Colombia', correct: 'no'}
+			{choice: 'Mexico', correct: 'no'},
+			{choice: 'Brazil', correct: 'yes'},
+			{choice: 'Argentina', correct: 'no'},
+			{choice: 'Colombia', correct: 'no'}
 		]
 	},
 	{
 		question: 'Which is the oldest soft drink to be served in America?',
 		answers: [
-			{answer: 'Coca Cola', correct: 'no'},
-			{answer: 'Fanta', correct: 'no'},
-			{answer: 'Dr Pepper', correct: 'yes'},
-			{answer: 'Sprite', correct: 'no'}
+			{choice: 'Coca Cola', correct: 'no'},
+			{choice: 'Fanta', correct: 'no'},
+			{choice: 'Dr Pepper', correct: 'yes'},
+			{choice: 'Sprite', correct: 'no'}
 		]
 	}
 ]
 
 // Shuffles the questions
 function shuffle(array) {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[array[i], array[j]] = [array[j], array[i]];
+	for (let original = array.length - 1; original > 0; original--) {
+		const replace = Math.floor(Math.random() * (original + 1));
+		[array[original], array[replace]] = [array[replace], array[original]];
 	}
 };
 shuffle(questions);
 
-// Placeholders that will get updated as the quiz progresses
+// Placeholders to be updated
 let questionIndex = 0;
-let correctAnswers = [];
-let chosenAnswers = [];
-let radiosChecked = [];
+let currentQuestion = questions[questionIndex];
 let userScore = 0;
-let next = document.getElementById("next");
-let prev = document.getElementById("prev");
-let inputs = document.getElementsByTagName('input');
+let correctAnswers = []
+let submittedAnswers = []
 
-function toggleButtons() {
-	next.hidden = false;
-	if (questionIndex == 4){
-		next.innerHTML = "Submit &#9989;"
-		next.removeEventListener("click", nextQuestion);
-		next.addEventListener("click", finalResults);
-	}
+const radioButtons = document.getElementsByTagName('input')
+const nextButton = document.getElementById("next");
+const prevButton = document.getElementById("prev");
+
+function showNextButton() {
+	// Change button's visibility to displayed
+	nextButton.hidden = false;
 };
 
 // Display current question on screen
 function displayQuestion(){
-	// Fill in h1 tag with current question
-	document.getElementById("question").innerHTML = questions[questionIndex].question;
+	next.hidden = true;
+	currentQuestion = questions[questionIndex];
+	// Display current question in h1 tag
+	document.getElementById("question").innerHTML = currentQuestion.question;
+	console.log('You are at question index: ' + questionIndex);
+	console.log('Your score is: ' + userScore)
 	
-	// Fill in label tags with answers to current question
-	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
-		document.getElementById(`ans${i + 1}`).innerHTML = questions[questionIndex].answers[i].answer;
-		inputs[i].addEventListener("click", toggleButtons)
+	for (let index = 0; index < currentQuestion.answers.length; index++) {
+		// Reset radio buttons from any previous input
+		radioButtons[index].checked = false;
+		// Display answers to current question in label tags
+		document.getElementById(`ans${index + 1}`).innerHTML = currentQuestion.answers[index].choice;
+		// Make clicking any radio button display the Next button
+		radioButtons[index].addEventListener("click", showNextButton);
 	}
 
-	next.addEventListener("click", nextQuestion);
-	prev.addEventListener("click", prevQuestion);
+	// Make clicking Next or Prev button call respective functions
+	prevButton.addEventListener("click", goToPrev);
+	nextButton.addEventListener("click", goToNext);
 
+	// Hide prev button if we are on the very first question
 	if (questionIndex == 0){
 		prev.hidden = true;
 	} else {
 		prev.hidden = false;
 	}
+	
+	// Have a submit button for final question
+	if (questionIndex == 4){
+		next.innerHTML = 'Submit &#9989;';
+	}
 }
 
 
 // Move to next question
-function nextQuestion() {
-	// Check which answer is selected and add it to chosenAnswers array
-	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
-		if (inputs[i].checked == true) {
-			chosenAnswers.splice(questionIndex, 1, questions[questionIndex].answers[i].answer);
-			radiosChecked.splice(questionIndex, 1, i);
+function goToNext() {
+	console.log('Going to next question');
+
+	// Loop through radio buttons
+	for (let buttonIndex = 0; buttonIndex < radioButtons.length; buttonIndex++) {
+		// Find radio index that is checked
+		if (radioButtons[buttonIndex].checked == true) {
+			// Extract answer from checked radio button
+			const nearestLabel = radioButtons[buttonIndex].nextSibling;
+			submittedAnswers.push(nearestLabel.nextSibling.innerHTML);
+			console.log('You chose: ' + submittedAnswers[questionIndex]);
 		}
-		// Reset radio buttons post-answer-check
-		inputs[i].checked = false;
-	};
+		
+		// Check if an answer in the array is correct
+		if (currentQuestion.answers[buttonIndex].correct == 'yes'){
+			// Add that answer to correctAnswers array
+			correctAnswers.push(currentQuestion.answers[buttonIndex].choice)
+		}
+	}
+	console.log('The correct answer is: ' + correctAnswers[questionIndex]);
+	// If correct and chosen answers on current question match, increment score
+	if (correctAnswers[questionIndex] == submittedAnswers[questionIndex]) {
+		userScore++;
+	}
 
-	// Add correct answer to correctAnswers array
-	correctAnswers.splice(questionIndex, 1, questions[questionIndex].answers.find(answer => answer.correct == "yes").answer);
-	
 
-	next.hidden = true;
 	questionIndex++;
-	displayQuestion();
+	if (questionIndex == 5){
+		showResults();
+	} else {
+		displayQuestion();
+	}
 };
 
 // Move to previous question
-function prevQuestion() {
-
-	// Remove last chosen and correct answers from their arrays
-	// chosenAnswers.pop(); // Old Method
-	// correctAnswers.pop(); // Old Method
-	
-	inputs[radiosChecked[radiosChecked.length - 1]].checked = true;
-	// radiosChecked.pop(); // Old Method
-
-	next.hidden = false;
-	next.innerHTML = "Next Question &#9193;"
-	next.removeEventListener("click", finalResults);
-	next.addEventListener("click", nextQuestion);
-
-	userScore--;
+function goToPrev() {
+	console.log('Going to previous question');
+	// Decrease question index by 1
 	questionIndex--;
+	// If final index of answer arrays both match
+	if (correctAnswers[questionIndex] == submittedAnswers[questionIndex]) {
+		// Decrease user score by 1
+		userScore--;
+	}
+	
+	// Remove last index from both answer arrays
+	correctAnswers.pop();
+	submittedAnswers.pop();
+	
+	// Changing Submit button back to Next button in case going back from final question 
+	if (questionIndex < 4) {
+		next.removeEventListener("click", showResults);
+		next.addEventListener("click", goToNext);
+	}
+	// FINAL: Call display question function
 	displayQuestion();
+	
+	
 }
 
 // Move to post-quiz results screen
-function finalResults(){
-
-	// Check which answer is selected and add it to chosenAnswers array
-	for (let i = 0; i < questions[questionIndex].answers.length; i++) {
-		if (inputs[i].checked == true) {
-			chosenAnswers.splice(questionIndex, 1, questions[questionIndex].answers[i].answer)
-		}
-		// Reset radio buttons post-answer-check
-		inputs[i].checked = false;
-	};
-
-	// Add correct answer to correctAnswers array
-	correctAnswers.splice(questionIndex, 1, questions[questionIndex].answers.find(answer => answer.correct == "yes").answer);
-
-	// If each answer matches, increment user score by 1
-	for (let i = 0; i < questions.length; i++) {
-		console.log(chosenAnswers[i]);
-		console.log(correctAnswers[i]);
-		if (chosenAnswers[i] === correctAnswers[i]) {
-		userScore++;
-		
-		}
-	}
+function showResults(){
 
 	document.getElementById("quiz").style.display = "none";
 	document.getElementById("results").style.display = "flex";
